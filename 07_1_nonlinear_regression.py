@@ -64,7 +64,7 @@ criterion = nn.MSELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)  
 
 # 3) Training loop
-num_epochs = 10000
+num_epochs = 20000
 loss_values = []
 
 for epoch in range(num_epochs):
