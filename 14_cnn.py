@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torchvision
-import torchvision.transforms as transforms
+import torchvision.transforms.v2 as transforms
 import matplotlib.pyplot as plt
 import numpy as np
 import ssl
@@ -22,13 +22,15 @@ else:
 
 # Hyper-parameters 
 num_epochs = 20
+num_epochs = 5
 batch_size = 8
 learning_rate = 0.001
 
 # dataset has PILImage images of range [0, 1]. 
 # We transform them to Tensors of normalized range [-1, 1]
 transform = transforms.Compose(
-    [transforms.ToTensor(),
+    [transforms.ToImage(),
+     transforms.ToDtype(torch.float32, scale=True),
      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
 # CIFAR10: 60000 32x32 color images in 10 classes, with 6000 images per class
@@ -59,7 +61,7 @@ images, labels = next(dataiter)
 
 # show images
 # imshow(torchvision.utils.make_grid(images))
-
+                                 
 class ConvNet(nn.Module):
   def __init__(self):
     super(ConvNet, self).__init__()
