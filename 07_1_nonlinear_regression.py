@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # 0) Prepare data
 np.random.seed(326636)
-X_numpy = np.random.rand(500, 1) * 10
+X_numpy = np.random.rand(1000, 1) * 10
 X_numpy = np.sort(X_numpy, axis=0)
 
 # Logistic growth equation parameters
@@ -61,10 +61,10 @@ model = NonlinearModel(input_size, hidden_size, output_size)
 learning_rate = 0.01
 
 criterion = nn.MSELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)  
+optimizer = torch.optim.RAdam(model.parameters(), lr=learning_rate)  
 
 # 3) Training loop
-num_epochs = 20000
+num_epochs = 10000
 loss_values = []
 
 for epoch in range(num_epochs):
@@ -100,8 +100,8 @@ X_test = np.linspace(0.01, 10, 200).reshape(-1, 1).astype(np.float32)
 X_test_tensor = torch.from_numpy(X_test)
 predicted_test = model(X_test_tensor).detach().numpy()
 
-ax2.plot(X_numpy, y_numpy, 'ro', label='Original data')
-ax2.plot(X_test, predicted_test, 'bo', label='Model predictions')
+ax2.plot(X_numpy, y_numpy, 'ro', label='Original data', markersize=2)
+ax2.plot(X_test, predicted_test, 'b-', label='Model predictions', linewidth=3)
 ax2.set_xlabel('X')
 ax2.set_ylabel('y')
 ax2.set_title('Original Data vs. Model Predictions')
